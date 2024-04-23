@@ -81,7 +81,7 @@ class _MyAppState extends State<MyApp> {
               },
               child: Text('stop live location')),
           Expanded(
-              child: StreamBuilder(
+              child: StreamBuilder(  //! for fetching live location from firebase firestore using streambuilder
             stream:
                 FirebaseFirestore.instance.collection('location').snapshots(),
             builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -89,6 +89,7 @@ class _MyAppState extends State<MyApp> {
                 return Center(child: CircularProgressIndicator());
               }
               return ListView.builder(
+                  shrinkWrap: true,
                   itemCount: snapshot.data?.docs.length,
                   itemBuilder: (context, index) {
                     return ListTile(
