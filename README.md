@@ -15,5 +15,3 @@ Source Code for flutter Live Location Tracker using goooglmap and location packa
 - [Permission Handler Package](https://bit.ly/2X1WAnE)
 <br><br>
 
-Feel Free to copy the code and use it.<br><br>
-Don't forget to star the repo and like the video :)
