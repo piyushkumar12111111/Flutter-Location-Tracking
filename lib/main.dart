@@ -7,6 +7,8 @@ import 'package:google_map_live/mymap.dart';
 import 'package:location/location.dart' as loc;
 import 'package:permission_handler/permission_handler.dart';
 
+import 'address.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -31,12 +33,33 @@ class _MyAppState extends State<MyApp> {
     _requestPermission();
     // location.changeSettings(interval: 300, accuracy: loc.LocationAccuracy.high);
     // location.enableBackgroundMode(enable: true);
+    fetchingData();
+  }
+
+  late String longitude;
+  late String latitude;
+
+  //! fetching data from firebase firestore code
+
+  Future<void> fetchingData() async {
+    final QuerySnapshot result =
+        await FirebaseFirestore.instance.collection('location').get();
+    final List<DocumentSnapshot> documents = result.docs;
+    documents.forEach((data) {
+      print(data['name']);
+      print(data['latitude']);
+      print(data['longitude']);
+
+      setState(() {
+        latitude = data['latitude'].toString();
+        longitude = data['longitude'].toString();
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       appBar: AppBar(
         title: Text('live location tracker'),
       ),
@@ -94,6 +117,11 @@ class _MyAppState extends State<MyApp> {
                   });
             },
           )),
+          Text("location address"),
+          LocationWidget(
+            latitude: latitude != null ? double.parse(latitude) : 0.0,
+            longitude: longitude != null ? double.parse(longitude) : 0.0,
+          ),
         ],
       ),
     );
@@ -146,8 +174,3 @@ class _MyAppState extends State<MyApp> {
     }
   }
 }
-
-
-
-
-
