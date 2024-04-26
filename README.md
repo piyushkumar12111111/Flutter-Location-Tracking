@@ -1,4 +1,4 @@
-# Flutter Live Location Tracker
+# Flutter Live Location Trackeing
 
 Source Code for flutter Live Location Tracker using goooglmap and location package.<br>
 
